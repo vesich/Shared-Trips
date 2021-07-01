@@ -6,12 +6,14 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+databaseConfig();
+
 start();
 
 async function start() {
     const app = express();
 
-    // databaseConfig();
+   
 
     expressConfig(app);
     routesConfig(app);
