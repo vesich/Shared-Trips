@@ -32,14 +32,19 @@ router.post('/register',
 
             res.redirect('/all') //TODO change redirect location
         } catch (err) {
-
-            const ctx = {
-                errors: err.message.split('\n'),
-                userData: {
-                    username: req.body.username
+            try {
+                const ctx = {
+                    errors: err.message.split('\n'),
+                    userData: {
+                        username: req.body.username
+                    }
                 }
+                res.render('register', ctx)
+            } catch (error) {
+                console.log(error);
             }
-            res.render('register', ctx)
+
+
         }
 
     })
