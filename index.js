@@ -10,13 +10,14 @@ start();
 
 async function start() {
     const app = express();
-    await databaseConfig(app);
+
+    databaseConfig();
 
     expressConfig(app);
     routesConfig(app);
 
     const PORT = process.env.PORT || 3000
-    
+
     app.listen(PORT, () => {
         console.log(`Application started at http://localhost:${PORT}`)
     });
