@@ -4,13 +4,24 @@ const router = require('express').Router();
 
 router.get('/', async (req, res) => {
 
-    res.render('home')
+    try {
+        res.render('home')
+    } catch (err) {
+        console.log(err);
+        res.redirect('/404');
+    }
+
 })
 
 router.get('/all', async (req, res) => {
+    try {
+        const trips = await req.storage.getAllTrips()
+        res.render('shared-trips', { trips })
+    } catch (error) {
+        console.log(error);
+        res.redirect('/404');
+    }
 
-    const trips = await req.storage.getAllTrips()
-    res.render('shared-trips', { trips })
 })
 
 router.get('/profile', isUser(), async (req, res) => {
