@@ -2,53 +2,83 @@ const Trip = require('../models/Trip');
 const User = require('../models/User')
 
 async function getAllTrips() {
-    return await Trip.find().lean();
+    try {
+        return await Trip.find().lean();
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 
 
 async function getTripById(id) {
-    return Trip.findById(id).populate('buddies').populate('author').lean();
+    try {
+        return Trip.findById(id).populate('buddies').populate('author').lean();
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 
 
 async function createTrip(tripData) {
+    try {
+        const trip = new Trip(tripData);
+        await trip.save();
 
-    const trip = new Trip(tripData);
-    await trip.save();
+        return trip
+    } catch (error) {
+        console.log(error);
+    }
 
-    return trip
+
 }
 
 
 async function editTrip(id, tripData) {
-    const trip = await Trip.findById(id);
+    try {
+        const trip = await Trip.findById(id);
 
-    trip.startPoint = tripData.startPoint;
-    trip.endPoint = tripData.endPoint;
-    trip.date = tripData.date;
-    trip.time = tripData.time;
-    trip.carImage = tripData.carImage;
-    trip.carBrand = tripData.carBrand;
-    trip.seats = tripData.seats;
-    trip.price = tripData.price;
-    trip.description = tripData.description;
+        trip.startPoint = tripData.startPoint;
+        trip.endPoint = tripData.endPoint;
+        trip.date = tripData.date;
+        trip.time = tripData.time;
+        trip.carImage = tripData.carImage;
+        trip.carBrand = tripData.carBrand;
+        trip.seats = tripData.seats;
+        trip.price = tripData.price;
+        trip.description = tripData.description;
 
-    return trip.save();
+        return trip.save();
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 
 async function deleteTrip(id) {
-    return Trip.findByIdAndDelete(id)
+    try {
+        return Trip.findByIdAndDelete(id)
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 
 async function join(tripId, userId) {
-    const trip = await Trip.findById(tripId);
-    const user = await User.findById(userId);
+    try {
+        const trip = await Trip.findById(tripId);
+        const user = await User.findById(userId);
 
-    user.tripsHistory.push(trip);
-    trip.buddies.push(user);
-    trip.seats--;
-    await user.save()
-    return trip.save();
+        user.tripsHistory.push(trip);
+        trip.buddies.push(user);
+        trip.seats--;
+        await user.save()
+        return trip.save();
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 
 module.exports = {

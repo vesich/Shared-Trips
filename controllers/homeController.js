@@ -14,16 +14,20 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/all', async (req, res) => {
-    const trips = await req.storage.getAllTrips()
+    try {
+        const trips = await req.storage.getAllTrips() || []
 
-
-    res.render('shared-trips', { trips })
+        res.render('shared-trips', { trips })
+    } catch (error) {
+        console.log(error);
+        res.redirect('/404');
+    }
 
 })
 
 router.get('/profile', isUser(), async (req, res) => {
     try {
-        //did not finish the profile page .. just not enough time
+
         const user = await req.storage.getUserByEmail(req.user.email)
         user.trips = user.tripsHistory.length
         console.log('profile  .......... ', user);

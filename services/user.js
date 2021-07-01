@@ -2,8 +2,8 @@ const User = require('../models/User');
 
 async function createUser(email, hashedPassword, gender) {
     //TODO adapt properties to project requirements
-
-    const user = new User({
+try {
+     const user = new User({
         email,
         hashedPassword,
         gender,
@@ -13,12 +13,21 @@ async function createUser(email, hashedPassword, gender) {
     await user.save();
 
     return user;
+} catch (error) {
+    console.log(error);
+}
+   
 }
 
 async function getUserByEmail(email) {
-    const pattern = new RegExp(`^${email}$`, 'i')
+    try {
+          const pattern = new RegExp(`^${email}$`, 'i')
     const user = await User.findOne({ email: { $regex: pattern } }).populate('tripsHistory').lean();
-    return user;
+    return user;  
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 
 
