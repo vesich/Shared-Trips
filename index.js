@@ -6,14 +6,14 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-databaseConfig();
 
 start();
 
 async function start() {
     const app = express();
 
-   
+    await databaseConfig();
+
 
     expressConfig(app);
     routesConfig(app);
@@ -21,6 +21,6 @@ async function start() {
     const PORT = process.env.PORT || 3000
 
     app.listen(PORT, () => {
-        console.log(`Application started at http://localhost:${PORT}`)
+        console.log(`Application started at port: ${PORT}`)
     });
 }

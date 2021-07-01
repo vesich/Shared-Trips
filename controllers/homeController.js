@@ -15,13 +15,7 @@ router.get('/', async (req, res) => {
 
 router.get('/all', async (req, res) => {
     try {
-        let trips;
-        try {
-            trips = await req.storage.getAllTrips()
-        } catch (error) {
-            console.log('ooppppppp', error);
-            trips = []
-        }
+        const trips = await req.storage.getAllTrips()
 
         res.render('shared-trips', { trips })
     } catch (error) {
