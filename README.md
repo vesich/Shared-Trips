@@ -1,3 +1,13 @@
 # Shared-Trips
 
-Back end multi-page Application for shared trips with authentication and authorization. You can travel with some buddies. TODO ... description
+## Back-end Application for shared trips with authentication and authorization. You can travel with some buddies. 
+
+Technologies implemented in the multi-page Application: 
+
+- Node.js
+- Express.js
+- Express-handlebars
+- Jsonwebtoken
+- Mongoose
+
+//TODO deploying in heroku
