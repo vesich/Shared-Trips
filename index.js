@@ -11,7 +11,7 @@ start();
 
 async function start() {
     const app = express();
-    await databaseConfig(app);
+    // await databaseConfig(app);
 
     expressConfig(app);
     routesConfig(app);
