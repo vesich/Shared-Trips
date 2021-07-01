@@ -14,13 +14,10 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/all', async (req, res) => {
-    try {
-        const trips = await req.storage.getAllTrips()
-        res.render('shared-trips', { trips })
-    } catch (error) {
-        console.log(error);
-        res.redirect('/404');
-    }
+    const trips = await req.storage.getAllTrips()
+
+
+    res.render('shared-trips', { trips })
 
 })
 
