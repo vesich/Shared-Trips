@@ -5,7 +5,7 @@ async function getAllTrips() {
     try {
         return await Trip.find().lean();
     } catch (error) {
-        console.log(error);
+        throw error
     }
 
 }
@@ -15,7 +15,7 @@ async function getTripById(id) {
     try {
         return Trip.findById(id).populate('buddies').populate('author').lean();
     } catch (error) {
-        console.log(error);
+        throw error
     }
 
 }
@@ -28,7 +28,7 @@ async function createTrip(tripData) {
 
         return trip
     } catch (error) {
-        console.log(error);
+        throw error
     }
 
 
@@ -51,7 +51,7 @@ async function editTrip(id, tripData) {
 
         return trip.save();
     } catch (error) {
-        console.log(error);
+        throw error
     }
 
 }
@@ -60,7 +60,7 @@ async function deleteTrip(id) {
     try {
         return Trip.findByIdAndDelete(id)
     } catch (error) {
-        console.log(error);
+        throw error
     }
 
 }
@@ -76,7 +76,7 @@ async function join(tripId, userId) {
         await user.save()
         return trip.save();
     } catch (error) {
-        console.log(error);
+        throw error
     }
 
 }
