@@ -11,4 +11,4 @@
 - Jsonwebtoken
 - Mongoose
 
-
+Visit on: https://shared-trips.herokuapp.com
