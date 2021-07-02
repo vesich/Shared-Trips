@@ -6,7 +6,7 @@ const router = require('express').Router()
 //CREATE GET & POST
 
 router.get('/create', isUser(), (req, res) => {
-    res.render('trip/create')
+    res.render('trip/create', { title: 'Offer a trip' })
 })
 
 router.post('/create', isUser(), async (req, res) => {
@@ -58,7 +58,8 @@ router.get('/details/:id', async (req, res) => {
         trip.isAuthor = req.user && req.user._id == trip.author._id
         trip.isJoined = Boolean(req.user && trip.buddies.find(u => u._id == req.user._id))
         trip.date = trip.date.toISOString().split("T")[0]
-        res.render('trip/details', { trip })
+        const title = 'Details'
+        res.render('trip/details', { trip, title })
     } catch (error) {
         console.log(error);
         res.redirect('/404')
@@ -71,7 +72,8 @@ router.get('/edit/:id', isUser(), async (req, res) => {
     try {
         const trip = await req.storage.getTripById(req.params.id);
         trip.date = trip.date.toISOString().split("T")[0];
-        res.render('trip/edit', { trip });
+        const title = 'Edit a trip';
+        res.render('trip/edit', { trip, title });
     } catch (error) {
         res.redirect('/trip/details/' + req.params.id);
     }
@@ -89,7 +91,6 @@ router.post('/edit/:id', isUser(), async (req, res) => {
         res.redirect('/trip/details/' + req.params.id);
 
     } catch (error) {
-        console.log('888888888888888', req.body.date);
         const ctx = {
             errors: parseError(error),
             trip: {
@@ -105,7 +106,6 @@ router.post('/edit/:id', isUser(), async (req, res) => {
                 description: req.body.description,
             }
         }
-
         res.render('trip/edit', ctx);
     }
 })

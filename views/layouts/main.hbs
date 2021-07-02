@@ -2,8 +2,9 @@
 
 <head>
     <!-- Do not forget to change the path to the css file -->
+    <link rel="shortcut icon" href="/static/images/trip-logo.png">
     <link rel="stylesheet" href="/static/css/style.css">
-    <title>Home Page</title>
+    <title>{{title}}</title>
 </head>
 
 <body>
@@ -31,7 +32,7 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/all">Shared Trips</a>
+                        <a class="nav-link" href="/all">All Trips </a>
                     </li>
                     <!-- Logged users -->
                     {{#if user}}
@@ -62,7 +63,7 @@
 
     <footer id="sticky-footer" class="bg-dark">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Shared Trip 2021</p>
+            <p class="m-0 text-center text-white">Copyright &copy; Carpooling 2021</p>
         </div>
     </footer>
 </body>
