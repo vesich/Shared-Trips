@@ -10,7 +10,7 @@ router.get('/register', isGuest(), (req, res) => {
 
 router.post('/register',
     isGuest(),
-    body('email').trim().isEmail().withMessage('Username must have a valid email address').isLength({ min: 3 }).withMessage("Username must be at least 3 characters long"),
+    body('email').trim().isEmail().withMessage('You must enter a valid email address'),
     body('password').trim().isLength({ min: 4 }).withMessage("Password must be at least 4 characters long"),
     body('rePass').custom((value, { req }) => {
         if (value != req.body.password) {
@@ -24,19 +24,17 @@ router.post('/register',
 
         try {
             if (errors.length > 0) {
-                console.log('^^^^^ ', errors);
                 throw new Error(Object.values(errors).map(e => e.msg).join('\n'));
             }
-            console.log(req.body);
             await req.auth.register(req.body.email, req.body.password, req.body.gender)
 
-            res.redirect('/all') //TODO change redirect location
+            res.redirect('/');
         } catch (err) {
             try {
                 const ctx = {
                     errors: err.message.split('\n'),
                     userData: {
-                        username: req.body.username
+                        email: req.body.email
                     }
                 }
                 res.render('register', ctx)
@@ -60,7 +58,7 @@ router.post('/login', isGuest(), async (req, res) => {
     try {
         await req.auth.login(req.body.email.trim(), req.body.password.trim())
 
-        res.redirect('/all')
+        res.redirect('/')
     } catch (err) {
         console.log(err.message);
         let errors = [err.message];

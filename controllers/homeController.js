@@ -16,6 +16,9 @@ router.get('/', async (req, res) => {
 router.get('/all', async (req, res) => {
     try {
         const trips = await req.storage.getAllTrips()
+        trips.forEach(one => {
+            one.date = one.date.toISOString().split("T")[0]
+        })
 
         res.render('shared-trips', { trips })
     } catch (error) {
@@ -30,7 +33,9 @@ router.get('/profile', isUser(), async (req, res) => {
 
         const user = await req.storage.getUserByEmail(req.user.email)
         user.trips = user.tripsHistory.length
-        console.log('profile  .......... ', user);
+        user.tripsHistory.forEach(one => {
+            one.date = one.date.toISOString().split("T")[0]
+        })
         res.render('profile', { user })
     } catch (err) {
         console.log(err);

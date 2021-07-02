@@ -57,7 +57,7 @@ router.get('/details/:id', async (req, res) => {
         trip.hasUser = Boolean(req.user);
         trip.isAuthor = req.user && req.user._id == trip.author._id
         trip.isJoined = Boolean(req.user && trip.buddies.find(u => u._id == req.user._id))
-console.log('DETAILS PAGE TRIPPPPP ',trip);
+        trip.date = trip.date.toISOString().split("T")[0]
         res.render('trip/details', { trip })
     } catch (error) {
         console.log(error);
@@ -70,13 +70,10 @@ console.log('DETAILS PAGE TRIPPPPP ',trip);
 router.get('/edit/:id', isUser(), async (req, res) => {
     try {
         const trip = await req.storage.getTripById(req.params.id);
-
-        // if (trip.author._id != req.user._id) {
-        //     throw new Error('Cannot edit trip you have not created')
-        // }
-        res.render('trip/edit', { trip })
+        trip.date = trip.date.toISOString().split("T")[0];
+        res.render('trip/edit', { trip });
     } catch (error) {
-        res.redirect('/trip/details/' + req.params.id)
+        res.redirect('/trip/details/' + req.params.id);
     }
 })
 
@@ -89,9 +86,10 @@ router.post('/edit/:id', isUser(), async (req, res) => {
         }
         await req.storage.editTrip(req.params.id, req.body);
 
-        res.redirect('/trip/details/' + req.params.id)
+        res.redirect('/trip/details/' + req.params.id);
 
     } catch (error) {
+        console.log('888888888888888', req.body.date);
         const ctx = {
             errors: parseError(error),
             trip: {
@@ -108,7 +106,7 @@ router.post('/edit/:id', isUser(), async (req, res) => {
             }
         }
 
-        res.render('trip/edit', ctx)
+        res.render('trip/edit', ctx);
     }
 })
 
@@ -136,13 +134,11 @@ router.get('/join/:id', isUser(), async (req, res) => {
     try {
         const trip = await req.storage.getTripById(req.params.id);
 
-        console.log('join page ', trip.author._id);
-
         if (trip.author._id == req.user._id) {
             throw new Error('Cannot join to  your own trip')
         }
 
-         await req.storage.join(req.params.id, req.user._id);
+        await req.storage.join(req.params.id, req.user._id);
         res.redirect('/trip/details/' + req.params.id);
     } catch (error) {
         console.log(error.message);

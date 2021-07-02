@@ -6,7 +6,7 @@ const schema = new Schema({
     date: { type: Date, required: [true, 'Date is required'] },
     time: { type: String, required: [true, 'Time is required'] },
     carImage: { type: String, required: [true, 'Image is required'], match: [/^https?/, 'Image must be a valid URL'] },
-    carBrand: { type: String, minLength: [4, 'Car brand must be at least 4 characters long.'] },
+    carBrand: { type: String, minLength: [3, 'Car brand must be at least 3 characters long.'] },
     seats: { type: Number, required: [true, 'Seats is required'], min: [0, "Minimum Seats 0"], max: [4, "Max Seats is 4"] },
     price: { type: Number, required: [true, 'Price is required'], min: [1, "Minimum Price 1"], max: [50, "Max Price is 50"] },
     description: { type: String, minLength: [10, 'Description must be at least 10 characters long.'] },
