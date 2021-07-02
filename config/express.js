@@ -19,9 +19,9 @@ module.exports = (app) => {
 
     app.use((req, res, next) => {
         if (!req.url.includes('favicon')) {
-            console.log('>>>>>', req.method, req.url);
+            console.log('METHOD & REQUEST URL >>>>> ', req.method, req.url);
             if (req.user) {
-                console.log('Known user ', req.user.email);
+                console.log('Known User >>>>> ', req.user.email);
             }
         }
         next()

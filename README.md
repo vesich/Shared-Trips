@@ -1,13 +1,14 @@
-# Shared-Trips
+# Carpooling
 
-## Back-end Application for shared trips with authentication and authorization. You can travel with some buddies. 
+### Back-end Application using Express.js with authentication and authorization. You can travel with other people and make new on the road buddies. You can join to someone's post or make your own one.
 
-Technologies implemented in the multi-page Application: 
+#### Technologies implemented in this multi-page Application: 
 
 - Node.js
 - Express.js
 - Express-handlebars
+- Express-validator
 - Jsonwebtoken
 - Mongoose
 
-//TODO deploying in heroku
+
