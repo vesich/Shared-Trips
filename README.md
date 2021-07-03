@@ -1,6 +1,6 @@
 # Carpooling
 
-### Back-end Application using Express.js with authentication and authorization. You can travel with other people and make new on the road buddies. You can join to someone's post or make your own one.
+### Back-end Application using Express.js with authentication and authorization. You can travel with other people and make new buddies on the road. You can join to someone's post or make your own one.
 
 #### Technologies implemented in this multi-page Application: 
 
