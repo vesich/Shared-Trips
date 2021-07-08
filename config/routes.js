@@ -7,5 +7,5 @@ module.exports = (app) => {
     app.use('/', homeController);
     app.use('/auth', authController);
     app.use('/trip', tripController);
-    app.use('/404', errorController);
+    app.use('*', errorController);
 }
